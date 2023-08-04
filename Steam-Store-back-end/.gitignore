@@ -2,5 +2,8 @@ node_modules
 .env
 .DS_Store
 
+db/steam.csv
+
 db/seed.sql
+
 db/oldSeed.sql
