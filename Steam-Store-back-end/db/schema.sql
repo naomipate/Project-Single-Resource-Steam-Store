@@ -8,7 +8,7 @@ CREATE TABLE games (
     id SERIAL PRIMARY KEY,
     appid INT,
     name TEXT NOT NULL,
-    release_date VARCHAR(15),
+    release_date VARCHAR(10),
     english INT,
     developer TEXT,
     publisher TEXT,
