@@ -15,3 +15,11 @@ CSV HEADER;
 
 
 SELECT * FROM games;
+
+/*
+SELECT * FROM games WHERE id BETWEEN 10 AND 20;
+
+This is a test query to isolate data according to what id it is.
+With pagination we need to only display a certain amount of data, and with this query we need to dynamically pass down the ranges that
+the user is query for.
+*/

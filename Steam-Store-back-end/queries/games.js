@@ -16,59 +16,65 @@ const getGameById = async (id) => {
     return error;
   }
 };
-const getByCategory = async (category) => {
+
+const getPage = async (startInd, endInd) => {
   try {
-    const gameGroup = db.any("SELECT * FROMS games WHERE categories IN $1", [
-      category,
-    ]);
-    return gameGroup;
+    const gameCollection = await db.any(
+      "SELECT * FROM games WHERE id BETWEEN $1 AND $2",
+      [startInd, endInd]
+    );
+    return gameCollection;
   } catch (error) {
     return error;
   }
 };
+// const getByCategory = async (category) => {
+//   try {
+//     const gameGroup = db.any("SELECT * FROMS games WHERE categories IN $1", [
+//       category,
+//     ]);
+//     return gameGroup;
+//   } catch (error) {
+//     return error;
+//   }
+// };
+
+/*
+Pagination Querys
+
+
+
+SELECT * FROM games WHERE id BETWEEN 10 AND 20; 
+*/
 
 const createGame = async ({
-  appid,
+  rank,
   name,
-  release_date,
-  english,
-  developer,
+  platform,
+  year,
+  genre,
   publisher,
-  platforms,
-  required_age,
-  categories,
-  genres,
-  steamspy_tags,
-  achievements,
-  positive_ratings,
-  negative_ratings,
-  average_playtime,
-  median_playtime,
-  owners,
-  price,
+  na_sales,
+  eu_sales,
+  jp_sales,
+  other_sales,
+  global_sales,
 }) => {
   try {
     const newGame = await db.any(
-      "INSERT INTO games (appid,name,release_date,english,developer,publisher,platforms,required_age,categories,genres,steamspy_tags,achievements,positive_ratings,negative_ratings,average_playtime,median_playtime,owners,price) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18) RETURNING *",
+      "INSERT INTO games (rank,name,platform,year,genre,publisher,na_sales,eu_sales,jp_sales,other_sales,global_sales) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *",
       [
-        appid,
+        rank,
         name,
-        release_date,
-        english,
-        developer,
+        platform,
+        year,
+        genre,
         publisher,
-        platforms,
-        required_age,
-        categories,
-        genres,
-        steamspy_tags,
-        achievements,
-        positive_ratings,
-        negative_ratings,
-        average_playtime,
-        median_playtime,
-        owners,
-        price,
+        na_sales,
+        eu_sales,
+        jp_sales,
+        other_sales,
+        global_sales,
       ]
     );
     return newGame;
@@ -89,9 +95,21 @@ const deleteGame = async (id) => {
   }
 };
 
+const getRecordsLength = async () => {
+  try {
+    const recordsLength = await db.any("SELECT COUNT(id) from games");
+    console.log(recordsLength);
+    return recordsLength;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getAllGames,
   getGameById,
   createGame,
   deleteGame,
+  getPage,
+  getRecordsLength,
 };
