@@ -1,4 +1,4 @@
-.loader {
+.loaderComp {
   width: 215px;
   height: 215px;
   display: block;
@@ -7,7 +7,7 @@
   background: #fff;
   box-sizing: border-box;
 }
-.loader::after {
+.loaderComp::after {
   content: "";
   width: calc(100% - 30px);
   height: calc(100% - 15px);

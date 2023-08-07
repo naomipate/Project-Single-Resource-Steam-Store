@@ -20,6 +20,16 @@ async function getTableLength() {
     return error;
   }
 }
+async function getCollection(page, limit) {
+  try {
+    let result = await Axios.get(
+      `/games/get-collection?page=${page}&limit=${limit}`
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
 
 async function getById(id) {
   try {
@@ -63,4 +73,5 @@ export {
   deleteGameByID,
   createGame,
   updateGame,
+  getCollection,
 };
