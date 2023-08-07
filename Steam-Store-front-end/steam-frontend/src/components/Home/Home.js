@@ -13,18 +13,18 @@ function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastIndex, setLastIndex] = useState(1);
 
-  console.log(searchParams);
-  console.log(searchParams.size);
-  console.log(searchParams.get("page"));
-  console.log(searchParams.get("limit"));
+  // console.log(searchParams);
+  // console.log(searchParams.size);
+  // console.log(searchParams.get("page"));
+  // console.log(searchParams.get("limit"));
 
   async function checkPagination() {
     if (searchParams.size === 0 || searchParams.size === 1) {
       searchParams.set("page", 1);
-      searchParams.set("limit", 19);
+      searchParams.set("limit", 20);
 
-      console.log(searchParams.get("page"));
-      console.log(searchParams.get("limit"));
+      // console.log(searchParams.get("page"));
+      // console.log(searchParams.get("limit"));
     }
   }
 
@@ -64,12 +64,17 @@ function Home() {
     }
   }
 
-  async function grabTopTen(page = 1, limit = 19) {
+  async function grabTopTen(page = 1, limit = 20) {
     try {
       setIsLoading(true);
       let result = await getCollection(page, limit);
       console.log(result.data);
-      setGameArray(result.data);
+      const response = result.data;
+      const lastItem = response[response.length - 1];
+      setLastIndex(Number(lastItem.id));
+      console.log(lastItem);
+
+      setGameArray(response);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
