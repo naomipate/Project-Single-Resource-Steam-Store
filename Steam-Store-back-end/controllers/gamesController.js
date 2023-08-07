@@ -8,6 +8,7 @@ const {
   deleteGame,
   getPage,
   getRecordsLength,
+  updateGame,
 } = require("../queries/games");
 
 router.get("/", async (req, res) => {
@@ -92,6 +93,20 @@ router.delete("/:id", async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error: error });
+  }
+});
+
+//Edit game entry
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedGame = await updateGame(req.params.id, req.body);
+    if (updatedGame.length === 0) {
+      res.status(404).json("Game not found");
+    } else {
+      res.status(200).json(updatedGame[0]);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error });
   }
 });
 

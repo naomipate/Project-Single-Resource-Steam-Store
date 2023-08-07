@@ -1,7 +1,12 @@
 import React from "react";
 
-function Overlay() {
-  return <div>Overlay</div>;
+function Overlay({ children, isLoading }) {
+  return (
+    <>
+      {isLoading && <div className="loader"></div>}
+      {children}
+    </>
+  );
 }
 
 export default Overlay;

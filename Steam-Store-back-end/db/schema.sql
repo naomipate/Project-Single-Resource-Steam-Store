@@ -4,6 +4,8 @@ CREATE DATABASE games_dev;
 
 DROP TABLE IF EXISTS games;
 
+
+--Test GIt
 -- CREATE TABLE games (
 --     id SERIAL PRIMARY KEY,
 --     appid INT,
