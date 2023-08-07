@@ -105,6 +105,31 @@ const getRecordsLength = async () => {
   }
 };
 
+const updateGame = async (id, game) => {
+  try {
+    const updatedGame = await db.any(
+      "Update games SET rank=$1, name=$2, platform=$3, year=$4, genre=$5, publisher=$6, na_sales=$7, eu_sales=$8, jp_sales=$9, other_sales=$10, global_sales=$11 WHERE id=$12 RETURNING *",
+      [
+        game.rank,
+        game.name,
+        game.platform,
+        game.year,
+        game.genre,
+        game.publisher,
+        game.na_sales,
+        game.eu_sales,
+        game.jp_sales,
+        game.other_sales,
+        game.global_sales,
+        id,
+      ]
+    );
+    return updatedGame;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getAllGames,
   getGameById,
@@ -112,4 +137,5 @@ module.exports = {
   deleteGame,
   getPage,
   getRecordsLength,
+  updateGame,
 };
