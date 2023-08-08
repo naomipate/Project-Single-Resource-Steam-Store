@@ -11,7 +11,9 @@ function Home() {
   //Handle Pagination
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
+  const [isNextPage, setIsNextPage] = useState(false);
   const [lastIndex, setLastIndex] = useState(1);
+  const [firstIndex, setFirstIndex] = useState(1);
 
   // console.log(searchParams);
   // console.log(searchParams.size);
@@ -35,12 +37,22 @@ function Home() {
     currentPage,
     searchParams,
     setCurrentPage,
+    setIsNextPage,
   };
 
   useEffect(() => {
     checkPagination();
     //fetchData();
-    grabTopTen(lastIndex);
+
+    if (isNextPage) {
+      grabTopTen(lastIndex);
+    } else {
+      if (firstIndex <= 1) {
+        grabTopTen();
+      } else {
+        grabTopTen(firstIndex);
+      }
+    }
   }, [currentPage]);
   async function fetchData() {
     try {
@@ -68,11 +80,13 @@ function Home() {
     try {
       setIsLoading(true);
       let result = await getCollection(page, limit);
-      console.log(result.data);
+      //console.log(result.data);
       const response = result.data;
       const lastItem = response[response.length - 1];
+      const firstItem = response[0];
       setLastIndex(Number(lastItem.id));
-      console.log(lastItem);
+      setFirstIndex(Number(firstItem.id) - 20);
+      // console.log(lastItem);
 
       setGameArray(response);
       setIsLoading(false);
