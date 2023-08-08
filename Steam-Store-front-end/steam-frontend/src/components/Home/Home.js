@@ -49,32 +49,33 @@ function Home() {
     } else {
       if (firstIndex <= 1) {
         grabTopTen();
+        setCurrentPage(1);
       } else {
         grabTopTen(firstIndex);
       }
     }
   }, [currentPage]);
-  async function fetchData() {
-    try {
-      setIsLoading(true);
-      let result = await getAllGames();
-      // let tenArr = [];
-      // for (let i = 0; i < 10; i++) {
-      //   tenArr.push(result.data[i]);
-      // }
-      //-----------For the bar chart----------//
-      // const salesArr = tenArr.map(({ global_sales }) => Number(global_sales));
-      // const namesArr = tenArr.map(({ name }) => name);
-      // setGameSales(salesArr);
-      // setGameNames(namesArr);
-      //---------------------------//
-      setGameArray(result.data);
-      // setTopTen(tenArr);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function fetchData() {
+  //   try {
+  //     setIsLoading(true);
+  //     let result = await getAllGames();
+  //     // let tenArr = [];
+  //     // for (let i = 0; i < 10; i++) {
+  //     //   tenArr.push(result.data[i]);
+  //     // }
+  //     //-----------For the bar chart----------//
+  //     // const salesArr = tenArr.map(({ global_sales }) => Number(global_sales));
+  //     // const namesArr = tenArr.map(({ name }) => name);
+  //     // setGameSales(salesArr);
+  //     // setGameNames(namesArr);
+  //     //---------------------------//
+  //     setGameArray(result.data);
+  //     // setTopTen(tenArr);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   async function grabTopTen(page = 1, limit = 20) {
     try {

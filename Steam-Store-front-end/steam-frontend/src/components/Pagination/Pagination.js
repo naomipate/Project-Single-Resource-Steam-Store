@@ -7,7 +7,7 @@ const Pagination = () => {
   // const navigate = useNavigate();
   //{ currentPage, nextPage, previousPage, searchParams }
 
-  const { currentPage, searchParams, setCurrentPage, setIsNextPage } =
+  const { currentPage, setCurrentPage, setIsNextPage } =
     useContext(PaginationContext);
 
   function handlePrev() {
