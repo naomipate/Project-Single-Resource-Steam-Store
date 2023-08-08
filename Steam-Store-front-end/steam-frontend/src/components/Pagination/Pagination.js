@@ -7,20 +7,22 @@ const Pagination = () => {
   // const navigate = useNavigate();
   //{ currentPage, nextPage, previousPage, searchParams }
 
-  const { currentPage, searchParams, setCurrentPage } =
+  const { currentPage, setCurrentPage, setIsNextPage } =
     useContext(PaginationContext);
 
   function handlePrev() {
     setCurrentPage(Number(currentPage) - 1);
+    setIsNextPage(false);
   }
   function handleNext() {
     setCurrentPage(Number(currentPage) + 1);
+    setIsNextPage(true);
   }
 
   return (
-    <nav>
+    <footer className="container">
       <ul className="pagination">
-        <li className="page-item">
+        <li className="page-item" id="1">
           <Link
             to={`/?page=${currentPage - 1}`}
             className="page-link"
@@ -30,13 +32,13 @@ const Pagination = () => {
           </Link>
         </li>
 
-        <li className="page-item active">
+        <li className="page-item active" id="2">
           <div className="page-link">
             <span aria-hidden="true">{currentPage}</span>
           </div>
         </li>
 
-        <li className="page-item">
+        <li className="page-item" id="3">
           <Link
             to={`/?page=${currentPage + 1}`}
             className="page-link"
@@ -46,7 +48,7 @@ const Pagination = () => {
           </Link>
         </li>
       </ul>
-    </nav>
+    </footer>
   );
 };
 
