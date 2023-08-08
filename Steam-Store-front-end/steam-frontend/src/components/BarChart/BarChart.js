@@ -1,33 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { BarChartContext } from "../common/context/context";
 import Overlay from "../common/overlay/Overlay";
 
 ChartJS.register(...registerables);
 
-function BarChart({ data_names, data_sales }) {
-  const [labels] = useState(data_names);
-  const [chartData] = useState(data_sales);
+function BarChart() {
+  const { topTwenty } = useContext(BarChartContext);
+  const [labels, setLabels] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
   //   const [labels, setLabels] = useState([]);
   //   const [chartData, setChartData] = useState([]);
   //   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // handleSalesData();
+    handleSalesData();
   }, []);
 
-  //   async function handleSalesData() {
-  //     setIsLoading(true);
-  //     const salesArr = data.map(({ global_sales }) => Number(global_sales));
-  //     const namesArr = data.map(({ name }) => name);
+  async function handleSalesData() {
+    if (topTwenty !== 0) {
+      const labelsArr = topTwenty.map(({ name }) => name);
+      const salesArr = topTwenty.map(({ global_sales }) => global_sales);
+      console.log(labelsArr);
+      console.log(salesArr);
+      setChartData(salesArr);
+      setLabels(labelsArr);
+    }
+  }
 
-  //     console.log(salesArr);
-  //     console.log(namesArr);
-  //     setChartData(salesArr);
-  //     setLabels(namesArr);
-  //     setIsLoading(false);
-  //   }
+  // function BarChartComp() {
+  //   const localData = {
+  //     labels: labels,
+  //     datasets: [
+  //       {
+  //         id: 1,
+  //         label: "Global Sales (Millions)",
+  //         data: chartData,
+  //       },
+  //     ],
+  //   };
+  //   return (
+  //     <Bar
+  //       // datasetIdKey="id"
+  //       data={localData}
+  //     />
+  //   );
+  // }
 
   function BarChartComp() {
     const localData = {
@@ -40,17 +60,12 @@ function BarChart({ data_names, data_sales }) {
         },
       ],
     };
-    return (
-      <Bar
-        // datasetIdKey="id"
-        data={localData}
-      />
-    );
+    return <Bar data={localData} />;
   }
   return (
-    <div className="container">
+    <>
       <BarChartComp />
-    </div>
+    </>
   );
 }
 

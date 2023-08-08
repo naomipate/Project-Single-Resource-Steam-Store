@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import Spinner from "./components/common/Spinner/Spinner";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
