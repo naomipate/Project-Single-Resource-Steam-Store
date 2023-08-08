@@ -4,3 +4,5 @@ import React from "react";
 export const PaginationContext = React.createContext({});
 
 export const BarChartContext = React.createContext({});
+
+export const PlatformContext = React.createContext({});

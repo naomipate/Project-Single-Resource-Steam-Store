@@ -49,7 +49,7 @@ function Home() {
   useEffect(() => {
     checkPagination();
     //fetchData();
-    console.log(topTwenty);
+    //console.log(topTwenty);
     if (isNextPage) {
       grabTopTen(lastIndex);
     } else {
@@ -96,11 +96,10 @@ function Home() {
       const firstItem = response[0];
       setLastIndex(Number(lastItem.id));
       setFirstIndex(Number(firstItem.id) - 20);
-      // console.log(lastItem);
+      console.log(lastItem);
       if (firstItem.rank === 1) {
         setTopTwenty(response);
       }
-
       setGameArray(response);
       setIsLoading(false);
     } catch (error) {
@@ -110,6 +109,7 @@ function Home() {
 
   return (
     <div className="container">
+      <br />
       <BarChartContext.Provider value={barChartContextValue}>
         <BarChart />
       </BarChartContext.Provider>
