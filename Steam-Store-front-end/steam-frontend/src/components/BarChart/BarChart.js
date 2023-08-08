@@ -17,37 +17,18 @@ function BarChart() {
 
   useEffect(() => {
     handleSalesData();
-  }, []);
+  }, [topTwenty]);
 
   async function handleSalesData() {
-    if (topTwenty !== 0) {
+    if (topTwenty.length !== 0) {
       const labelsArr = topTwenty.map(({ name }) => name);
       const salesArr = topTwenty.map(({ global_sales }) => global_sales);
-      console.log(labelsArr);
-      console.log(salesArr);
+      // console.log(labelsArr);
+      // console.log(salesArr);
       setChartData(salesArr);
       setLabels(labelsArr);
     }
   }
-
-  // function BarChartComp() {
-  //   const localData = {
-  //     labels: labels,
-  //     datasets: [
-  //       {
-  //         id: 1,
-  //         label: "Global Sales (Millions)",
-  //         data: chartData,
-  //       },
-  //     ],
-  //   };
-  //   return (
-  //     <Bar
-  //       // datasetIdKey="id"
-  //       data={localData}
-  //     />
-  //   );
-  // }
 
   function BarChartComp() {
     const localData = {
