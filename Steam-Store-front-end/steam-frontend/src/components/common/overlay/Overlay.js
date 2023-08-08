@@ -1,9 +1,11 @@
 import React from "react";
 
+import "./Overlay.css";
+
 function Overlay({ children, isLoading }) {
   return (
     <>
-      {isLoading && <div className="loader"></div>}
+      {isLoading && <div className="loaderComp"></div>}
       {children}
     </>
   );
