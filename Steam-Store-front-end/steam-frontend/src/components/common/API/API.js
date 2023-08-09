@@ -49,7 +49,7 @@ async function deleteGameByID(id) {
 }
 async function createGame(data) {
   try {
-    let result = await Axios.delete(`/games`, data);
+    let result = await Axios.post(`/games`, data);
     return result;
   } catch (error) {
     return error;
@@ -58,7 +58,15 @@ async function createGame(data) {
 
 async function updateGame(id, data) {
   try {
-    let result = await Axios.delete(`/games/${id}`, data);
+    let result = await Axios.put(`/games/${id}`, data);
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
+async function searchGame(term) {
+  try {
+    let result = await Axios.get(`/games/get-by-search/${term}`);
     return result;
   } catch (error) {
     return error;
@@ -74,4 +82,5 @@ export {
   createGame,
   updateGame,
   getCollection,
+  searchGame,
 };
