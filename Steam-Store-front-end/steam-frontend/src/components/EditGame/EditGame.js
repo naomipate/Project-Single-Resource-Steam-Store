@@ -86,7 +86,8 @@ function EditGame() {
     e.preventDefault();
     try {
       await updateTheGame(id);
-      navigate(`/edit-game/${id}`);
+      alert("Successfully Updated!");
+      navigate(-1);
     } catch (e) {
       console.log(e);
     }
@@ -178,7 +179,7 @@ function EditGame() {
         <div className="input-group mb-3">
           <label className="input-group-text">European Sales</label>
           <input
-            className=""
+            className="form-control"
             type="text"
             name="eu_sales"
             id="eu_sales"
@@ -186,9 +187,10 @@ function EditGame() {
             value={game.eu_sales}
           />
         </div>
-        <div>
-          <label>Japanese Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Japanese Sales</label>
           <input
+            className="form-control"
             type="text"
             name="jp_sales"
             id="jp_sales"
@@ -196,9 +198,10 @@ function EditGame() {
             value={game.jp_sales}
           />
         </div>
-        <div>
-          <label>Other Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Other Sales</label>
           <input
+            className="form-control"
             type="text"
             name="other_sales"
             id="other_sales"
@@ -206,9 +209,10 @@ function EditGame() {
             value={game.other_sales}
           />
         </div>
-        <div>
-          <label>Global Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Global Sales</label>
           <input
+            className="form-control"
             required
             type="text"
             name="global_sales"
@@ -217,7 +221,7 @@ function EditGame() {
             value={game.global_sales}
           />
         </div>
-        <button>Submit</button>
+        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   );

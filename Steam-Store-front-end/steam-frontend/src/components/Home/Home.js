@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { getCollection } from "../common/API/API";
-import { useSearchParams } from "react-router-dom";
-import { PaginationContext, BarChartContext } from "../common/context/context";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import {
+  PaginationContext,
+  BarChartContext,
+  // AlertContext,
+  SearchContext,
+} from "../common/context/context";
 
 import Overlay from "../common/overlay/Overlay";
 import BarChart from "../BarChart/BarChart";
 import TableUnit from "../common/TableUnit/TableUnit";
 import Pagination from "../Pagination/Pagination";
+import SearchBar from "../common/SearchBar/SearchBar";
 
 function Home() {
+  const navigate = useNavigate();
   //Handle Pagination
+  //const [lastAction, setLastAction] = useState([]);
+  const [isSearching, setIsSearching] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextPage, setIsNextPage] = useState(false);
@@ -21,6 +33,7 @@ function Home() {
   // console.log(searchParams.size);
   // console.log(searchParams.get("page"));
   // console.log(searchParams.get("limit"));
+  useEffect(() => {}, [isSearching]);
 
   async function checkPagination() {
     if (searchParams.size === 0 || searchParams.size === 1) {
@@ -44,6 +57,14 @@ function Home() {
 
   const barChartContextValue = {
     topTwenty,
+  };
+
+  const searchBarContextValue = {
+    searchTerm,
+    searchResults,
+    setSearchResults,
+    setSearchTerm,
+    setIsSearching,
   };
 
   useEffect(() => {
@@ -97,9 +118,9 @@ function Home() {
       setLastIndex(Number(lastItem.id));
       setFirstIndex(Number(firstItem.id) - 20);
       //console.log(lastItem);
-      if (firstItem.rank === 1) {
-        setTopTwenty(response);
-      }
+
+      setTopTwenty(response);
+
       setGameArray(response);
       setIsLoading(false);
     } catch (error) {
@@ -107,6 +128,37 @@ function Home() {
     }
   }
 
+  /*
+  function handleOperations(options) {
+    let localData = gameArray;
+    if (options === "ASC") {
+      localData = gameArray.sort((a, b) => {
+        let nameA = a.name.toLowerCase();
+        let nameB = b.name.toLowerCase();
+        if (nameA > nameB) {
+          return 1;
+        }
+        if (nameA < nameB) {
+          return -1;
+        }
+        return 0;
+      });
+    } else if (options === "DESC") {
+      localData = gameArray.sort((a, b) => {
+        let nameA = a.name.toLowerCase();
+        let nameB = b.name.toLowerCase();
+        if (nameB > nameA) {
+          return 1;
+        }
+        if (nameB < nameA) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+    console.log(localData)
+    setGameArray(localData);
+  }*/
   return (
     <div className="container">
       <br />
@@ -114,8 +166,62 @@ function Home() {
         <BarChart />
       </BarChartContext.Provider>
       <br />
+      <SearchContext.Provider value={searchBarContextValue}>
+        <SearchBar />
+      </SearchContext.Provider>
+      <br />
+      {isSearching || searchResults[0] ? (
+        <div className="container">
+          <h3>Search Results: {searchResults.length}</h3>
+
+          <table className="table table-bordered table-hover table-dark">
+            <thead>
+              <tr className="text-center">
+                <th scope="col">Name</th>
+                <th scope="col">Sales</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchResults.map(({ name, id, global_sales }, index) => {
+                return (
+                  <>
+                    <tr
+                      key={index}
+                      className="text-center"
+                      onClick={() => navigate(`/${id}`)}
+                    >
+                      <td>{name}</td>
+                      <td>{global_sales}</td>
+                    </tr>
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <></>
+      )}
+      <br />
       <Overlay isLoading={isLoading}>
         <div className="container">
+          <br />
+          {/* <div className="btn-group">
+            <button
+              className="btn btn-danger"
+              onClick={() => handleOperations("ASC")}
+            >
+              Ascending
+            </button>
+            <button
+              className="btn btn-success"
+              onClick={() => handleOperations("DESC")}
+            >
+              Descending
+            </button>
+          </div> */}
+          <br />
+
           <br />
           <table className="table table-bordered table-dark table-hover">
             <thead>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getById } from "../common/API/API";
+import { getById, deleteGameByID } from "../common/API/API";
 import { useParams, useNavigate } from "react-router-dom";
 
 function ShowPage() {
@@ -17,6 +17,16 @@ function ShowPage() {
 
       console.log(result.data);
       setData(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      deleteGameByID(id);
+      alert("Successfully Deleted");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +61,9 @@ function ShowPage() {
             >
               Edit
             </button>
-            <button className="btn btn-primary">Delete</button>
+            <button className="btn btn-primary" onClick={handleDelete}>
+              Delete
+            </button>
           </div>
         </div>
       </div>

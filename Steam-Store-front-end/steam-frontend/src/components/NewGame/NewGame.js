@@ -58,8 +58,8 @@ function NewGame() {
       await createGame(game);
 
       setGame({
-        name: "",
         rank: "",
+        name: "",
         platform: "",
         year: "",
         genre: "",
@@ -70,12 +70,14 @@ function NewGame() {
         other_sales: "",
         global_sales: "",
       });
+      alert("New Game Created!");
       navigate("/");
     } catch (e) {
       console.log(e);
     }
   }
   function handleOnchange(id, value) {
+    //console.log(id, value);
     setGame({
       ...game,
       [id]: value,
@@ -86,6 +88,17 @@ function NewGame() {
     <div className="container">
       <br />
       <form onSubmit={createTheGame}>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Rank</label>
+          <input
+            className="form-control"
+            required
+            type="text"
+            id="rank"
+            onChange={(e) => handleOnchange(e.target.id, e.target.value)}
+            value={game.rank}
+          />
+        </div>
         <div className="input-group mb-3">
           <label className="input-group-text">Name</label>
           <input
@@ -103,7 +116,13 @@ function NewGame() {
           //className="input-group mb-3"
         >
           <label className="input-group-text">Platform</label>
-          <select className="form-select">
+          <select
+            className="form-select"
+            id="platform"
+            onChange={(e) => {
+              handleOnchange(e.target.id, e.target.value);
+            }}
+          >
             <option defaultValue={""}>Select Platform</option>
             {platformOpt.map((item, index) => {
               return (
