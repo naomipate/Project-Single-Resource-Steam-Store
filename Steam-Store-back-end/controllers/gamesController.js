@@ -9,6 +9,9 @@ const {
   getPage,
   getRecordsLength,
   updateGame,
+  orderByASC,
+  orderByDESC,
+  searchForItem,
 } = require("../queries/games");
 
 const {
@@ -27,6 +30,12 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/order-by-asc", async (req, res) => {
+  const ascending = await orderByASC();
+});
+router.get("/order-by-desc", async (req, res) => {
+  const descending = await orderByDESC();
+});
 /*
 This is a way to query a set amount of data and not to call all of the dat
 
@@ -87,6 +96,7 @@ router.post(
   checkYear,
   checkGlobalSales,
   async (req, res) => {
+    console.log(req.body);
     try {
       const createdGame = await createGame(req.body);
       res.status(200).json(createdGame[0]);
@@ -130,5 +140,17 @@ router.put(
     }
   }
 );
+router.get("/get-by-search/:search", async (req, res) => {
+  try {
+    const searchResults = await searchForItem(req.params.search);
+    if (!searchResults[0]) {
+      res.status(404).json({ error: "Results not found" });
+    } else {
+      res.status(200).json(searchResults);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
 
 module.exports = router;

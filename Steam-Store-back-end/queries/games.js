@@ -28,23 +28,37 @@ const getPage = async (startInd, endInd) => {
     return error;
   }
 };
-// const getByCategory = async (category) => {
-//   try {
-//     const gameGroup = db.any("SELECT * FROMS games WHERE categories IN $1", [
-//       category,
-//     ]);
-//     return gameGroup;
-//   } catch (error) {
-//     return error;
-//   }
-// };
+
+const searchForItem = async (term) => {
+  const formTerm = `%${term}%`;
+
+  try {
+    const searchResults = await db.any(
+      "SELECT * FROM games WHERE name ILIKE $1",
+      [formTerm]
+    );
+
+    return searchResults;
+  } catch (error) {
+    return error;
+  }
+};
 
 /*
+ const getByCategory = async (category) => {
+   try {
+     const gameGroup = db.any("SELECT * FROMS games WHERE categories IN $1", [
+       category,
+     ]);
+     return gameGroup;
+   } catch (error) {
+     return error;
+   }
+ };
+
 Pagination Querys
-
-
-
 SELECT * FROM games WHERE id BETWEEN 10 AND 20; 
+
 */
 
 const createGame = async ({
@@ -64,17 +78,17 @@ const createGame = async ({
     const newGame = await db.any(
       "INSERT INTO games (rank,name,platform,year,genre,publisher,na_sales,eu_sales,jp_sales,other_sales,global_sales) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *",
       [
-        rank,
-        name,
-        platform,
-        year,
-        genre,
-        publisher,
-        na_sales,
-        eu_sales,
-        jp_sales,
-        other_sales,
-        global_sales,
+        rank, //1
+        name, //2
+        platform, // 3
+        year, // 4
+        genre, // 5
+        publisher, // 6
+        na_sales, // 7
+        eu_sales, // 8
+        jp_sales, //9
+        other_sales, //10
+        global_sales, //11
       ]
     );
     return newGame;
@@ -129,6 +143,22 @@ const updateGame = async (id, game) => {
     return error;
   }
 };
+const orderByASC = async () => {
+  try {
+    const ascGames = await db.any("SELECT * FROM games ORDER BY id ASC");
+    return ascGames;
+  } catch (error) {
+    return error;
+  }
+};
+const orderByDESC = async () => {
+  try {
+    const descGames = await db.any("SELECT * FROM games ORDER BY id DESC");
+    return descGames;
+  } catch (error) {
+    return error;
+  }
+};
 
 module.exports = {
   getAllGames,
@@ -138,4 +168,7 @@ module.exports = {
   getPage,
   getRecordsLength,
   updateGame,
+  orderByASC,
+  orderByDESC,
+  searchForItem,
 };
