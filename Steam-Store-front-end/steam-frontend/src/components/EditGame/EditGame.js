@@ -6,6 +6,39 @@ function EditGame() {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const [platformOpt] = useState([
+    "2600",
+    "3DO",
+    "3DS",
+    "DC",
+    "DS",
+    "GB",
+    "GBA",
+    "GC",
+    "GEN",
+    "GG",
+    "N64",
+    "NES",
+    "NG",
+    "PC",
+    "PCFX",
+    "PS",
+    "PS2",
+    "PS3",
+    "PS4",
+    "PSP",
+    "PSV",
+    "SAT",
+    "SCD",
+    "SNES",
+    "TG16",
+    "Wii",
+    "WiiU",
+    "WS",
+    "X360",
+    "XOne",
+  ]);
+
   const [game, setGame] = useState({
     rank: "",
     name: "",
@@ -60,9 +93,9 @@ function EditGame() {
   }
 
   return (
-    <div>
+    <div className="container">
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="mb-3">
           <label>Name</label>
           <input
             required

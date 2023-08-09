@@ -4,6 +4,38 @@ import { useNavigate } from "react-router-dom";
 
 function NewGame() {
   let navigate = useNavigate();
+  const [platformOpt] = useState([
+    "2600",
+    "3DO",
+    "3DS",
+    "DC",
+    "DS",
+    "GB",
+    "GBA",
+    "GC",
+    "GEN",
+    "GG",
+    "N64",
+    "NES",
+    "NG",
+    "PC",
+    "PCFX",
+    "PS",
+    "PS2",
+    "PS3",
+    "PS4",
+    "PSP",
+    "PSV",
+    "SAT",
+    "SCD",
+    "SNES",
+    "TG16",
+    "Wii",
+    "WiiU",
+    "WS",
+    "X360",
+    "XOne",
+  ]);
 
   const [game, setGame] = useState({
     rank: "",
@@ -28,7 +60,6 @@ function NewGame() {
       setGame({
         name: "",
         rank: "",
-        name: "",
         platform: "",
         year: "",
         genre: "",
@@ -52,11 +83,13 @@ function NewGame() {
   }
 
   return (
-    <div>
+    <div className="container">
+      <br />
       <form onSubmit={createTheGame}>
-        <div>
-          <label>Name</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Name</label>
           <input
+            className="form-control"
             required
             type="text"
             name="name"
@@ -65,20 +98,36 @@ function NewGame() {
             value={game.name}
           />
         </div>
-        <div>
-          <label>Platform</label>
+        <div
+          className="input-group mb-3"
+          //className="input-group mb-3"
+        >
+          <label className="input-group-text">Platform</label>
+          <select className="form-select">
+            <option defaultValue={""}>Select Platform</option>
+            {platformOpt.map((item, index) => {
+              return (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </select>
+          {/* <label className="input-group-text">Platform</label>
           <input
+            className="form-control"
             required
             type="text"
             name="platform"
             id="platform"
             onChange={(e) => handleOnchange(e.target.id, e.target.value)}
             value={game.platform}
-          />
+          /> */}
         </div>
-        <div>
-          <label>Year</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Year</label>
           <input
+            className="form-control"
             required
             type="text"
             name="year"
@@ -87,9 +136,10 @@ function NewGame() {
             value={game.year}
           />
         </div>
-        <div>
-          <label>Genre</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Genre</label>
           <input
+            className="form-control"
             type="text"
             name="genre"
             id="genre"
@@ -97,9 +147,10 @@ function NewGame() {
             value={game.genre}
           />
         </div>
-        <div>
-          <label>Publisher</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Publisher</label>
           <input
+            className="form-control"
             type="text"
             name="publisher"
             id="publisher"
@@ -107,9 +158,10 @@ function NewGame() {
             value={game.publisher}
           />
         </div>
-        <div>
-          <label>National Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">National Sales</label>
           <input
+            className="form-control"
             type="text"
             name="na_sales"
             id="na_sales"
@@ -117,9 +169,10 @@ function NewGame() {
             value={game.na_sales}
           />
         </div>
-        <div>
-          <label>European Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">European Sales</label>
           <input
+            className="form-control"
             type="text"
             name="eu_sales"
             id="eu_sales"
@@ -127,9 +180,10 @@ function NewGame() {
             value={game.eu_sales}
           />
         </div>
-        <div>
-          <label>Japanese Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Japanese Sales</label>
           <input
+            className="form-control"
             type="text"
             name="jp_sales"
             id="jp_sales"
@@ -137,9 +191,10 @@ function NewGame() {
             value={game.jp_sales}
           />
         </div>
-        <div>
-          <label>Other Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text ">Other Sales</label>
           <input
+            className="form-control"
             type="text"
             name="other_sales"
             id="other_sales"
@@ -147,9 +202,10 @@ function NewGame() {
             value={game.other_sales}
           />
         </div>
-        <div>
-          <label>Global Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Global Sales</label>
           <input
+            className="form-control"
             required
             type="text"
             name="global_sales"
@@ -158,7 +214,8 @@ function NewGame() {
             value={game.global_sales}
           />
         </div>
-        <button>Submit</button>
+        <br />
+        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   );
