@@ -94,10 +94,12 @@ function EditGame() {
 
   return (
     <div className="container">
+      <br />
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label>Name</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Name</label>
           <input
+            className="form-control"
             required
             type="text"
             name="name"
@@ -106,20 +108,32 @@ function EditGame() {
             value={game.name}
           />
         </div>
-        <div>
-          <label>Platform</label>
-          <input
+        <div className="input-group mb-3">
+          <label className="input-group-text">Platform</label>
+          {/* <input
+            className="form-control"
             required
             type="text"
             name="platform"
             id="platform"
             onChange={handleTextChange}
             value={game.platform}
-          />
+          /> */}
+          <select className="form-select" onChange={handleTextChange}>
+            <option defaultValue={game.platform}>{game.platform}</option>
+            {platformOpt.map((item, index) => {
+              return (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </select>
         </div>
-        <div>
-          <label>Year</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Year</label>
           <input
+            className="form-control"
             required
             type="text"
             name="year"
@@ -128,9 +142,10 @@ function EditGame() {
             value={game.year}
           />
         </div>
-        <div>
-          <label>Genre</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Genre</label>
           <input
+            className="form-control"
             type="text"
             name="genre"
             id="genre"
@@ -138,9 +153,10 @@ function EditGame() {
             value={game.genre}
           />
         </div>
-        <div>
-          <label>Publisher</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Publisher</label>
           <input
+            className="form-control"
             type="text"
             name="publisher"
             id="publisher"
@@ -148,9 +164,10 @@ function EditGame() {
             value={game.publisher}
           />
         </div>
-        <div>
-          <label>National Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">National Sales</label>
           <input
+            className="form-control"
             type="text"
             name="na_sales"
             id="na_sales"
@@ -158,9 +175,10 @@ function EditGame() {
             value={game.na_sales}
           />
         </div>
-        <div>
-          <label>European Sales</label>
+        <div className="input-group mb-3">
+          <label className="input-group-text">European Sales</label>
           <input
+            className=""
             type="text"
             name="eu_sales"
             id="eu_sales"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllGames, getCollection } from "../common/API/API";
+import { getCollection } from "../common/API/API";
 import { useSearchParams } from "react-router-dom";
 import { PaginationContext, BarChartContext } from "../common/context/context";
 
@@ -96,7 +96,7 @@ function Home() {
       const firstItem = response[0];
       setLastIndex(Number(lastItem.id));
       setFirstIndex(Number(firstItem.id) - 20);
-      console.log(lastItem);
+      //console.log(lastItem);
       if (firstItem.rank === 1) {
         setTopTwenty(response);
       }
