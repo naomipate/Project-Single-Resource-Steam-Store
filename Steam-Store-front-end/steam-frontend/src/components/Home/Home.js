@@ -170,7 +170,7 @@ function Home() {
         <SearchBar />
       </SearchContext.Provider>
       <br />
-      {isSearching || searchResults[0] ? (
+      {isSearching ? (
         <div className="container">
           <h3>Search Results: {searchResults.length}</h3>
 
@@ -184,16 +184,14 @@ function Home() {
             <tbody>
               {searchResults.map(({ name, id, global_sales }, index) => {
                 return (
-                  <>
-                    <tr
-                      key={index}
-                      className="text-center"
-                      onClick={() => navigate(`/${id}`)}
-                    >
-                      <td>{name}</td>
-                      <td>{global_sales}</td>
-                    </tr>
-                  </>
+                  <tr
+                    key={index}
+                    className="text-center"
+                    onClick={() => navigate(`/${id}`)}
+                  >
+                    <td>{name}</td>
+                    <td>{global_sales}</td>
+                  </tr>
                 );
               })}
             </tbody>
