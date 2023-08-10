@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { SearchContext } from "../context/context";
 import { searchGame } from "../API/API";
+import { isEmpty } from "validator";
 
 function SearchBar() {
   const { searchTerm, setSearchResults, setSearchTerm } =
@@ -8,11 +9,22 @@ function SearchBar() {
 
   async function handleSearch(e) {
     e.preventDefault();
-    try {
-      let result = await searchGame(searchTerm);
-      setSearchResults(result.data);
-    } catch (error) {
-      console.log(error);
+
+    if (isEmpty(searchTerm)) {
+      setSearchResults([
+        {
+          id: 0,
+          name: "Empty is not valid search",
+          global_sales: 0.0,
+        },
+      ]);
+    } else {
+      try {
+        let result = await searchGame(searchTerm);
+        setSearchResults(result.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
