@@ -162,44 +162,49 @@ function Home() {
   return (
     <div className="container">
       <br />
-      <BarChartContext.Provider value={barChartContextValue}>
-        <BarChart />
-      </BarChartContext.Provider>
-      <br />
-      <SearchContext.Provider value={searchBarContextValue}>
-        <SearchBar />
-      </SearchContext.Provider>
-      <br />
-      {isSearching ? (
-        <div className="container">
-          <h3>Search Results: {searchResults.length}</h3>
+      <div className="container">
+        <BarChartContext.Provider value={barChartContextValue}>
+          <BarChart />
+        </BarChartContext.Provider>
+      </div>
 
-          <table className="table table-bordered table-hover table-dark">
-            <thead>
-              <tr className="text-center">
-                <th scope="col">Name</th>
-                <th scope="col">Sales</th>
-              </tr>
-            </thead>
-            <tbody>
-              {searchResults.map(({ name, id, global_sales }, index) => {
-                return (
-                  <tr
-                    key={index}
-                    className="text-center"
-                    onClick={() => navigate(`/${id}`)}
-                  >
-                    <td>{name}</td>
-                    <td>{global_sales}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <></>
-      )}
+      <br />
+      <div className="container">
+        <SearchContext.Provider value={searchBarContextValue}>
+          <SearchBar />
+        </SearchContext.Provider>
+        <br />
+        {isSearching ? (
+          <div className="container">
+            <h3>Search Results: {searchResults.length}</h3>
+
+            <table className="table table-bordered table-hover table-dark">
+              <thead>
+                <tr className="text-center">
+                  <th scope="col">Name</th>
+                  <th scope="col">Sales</th>
+                </tr>
+              </thead>
+              <tbody>
+                {searchResults.map(({ name, id, global_sales }, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      className="text-center"
+                      onClick={() => navigate(`/${id}`)}
+                    >
+                      <td>{name}</td>
+                      <td>{global_sales}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <br />
       <Overlay isLoading={isLoading}>
         <div className="container">
